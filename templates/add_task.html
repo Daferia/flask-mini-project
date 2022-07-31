@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
     <h3 class="light-blue-text text-darken-4 center-align">Add Task</h3>
+    
     <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="">
+        <!-- Add Task Form -->
+        <form class="col s12" method="POST" action="{{ url_for('add_task') }}">
+            <!-- Dropdown list for categories -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
@@ -11,12 +14,11 @@
                         {% for category in categories %}
                             <option value="{{ category.category_name}}">{{ category.category_name}}</option>
                         {% endfor %}
-
-
                     </select>
                     <label for="category_name">Task Category</label>
                 </div>
             </div>
+            <!-- Task Name input field -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
@@ -25,14 +27,16 @@
                     <label for="task_name">Task Name</label>
                 </div>
             </div>
+            <!-- Description Textarea -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
                     <textarea id="task_description" name="task_description" minlength="5" 
                     maxlength="200" class="materialize-textarea validate" required></textarea>
-                    <label for="task_description">Textarea</label>
+                    <label for="task_description">Description</label>
                 </div>
             </div>
+            <!-- Due Date Datepicker -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
@@ -41,6 +45,7 @@
                     <label for="due_date">Due Date</label>
                 </div>
             </div>
+            <!-- Is Urgent Slider -->
             <div class="row">
                 <div class="input-field col s12">
                     <div class="switch">
@@ -51,6 +56,14 @@
                             Is Urgent
                         </label>
                     </div>
+                </div>
+            </div>
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
+                        Add Task <i class="fas fa-plus-square right"></i>
+                    </button>
                 </div>
             </div>
         </form>
