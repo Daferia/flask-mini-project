@@ -1,4 +1,5 @@
 import os
+from unicodedata import category
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -162,6 +163,21 @@ def add_category():
         return redirect(url_for("get_categories"))
     
     return render_template("add_category.html")
+
+
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        submit = {"$set":
+        {
+            "category_name": request.form.get("category_name")
+        }}
+        mongo.db.categories.update_one({"_id": ObjectId(category_id)},submit)
+        flash("You category has been updated!")
+        return redirect(url_for("get_categories"))
+
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template("edit_category.html", category=category)
 
 
 if __name__ == "__main__":
